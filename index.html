@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>미친 과학자의 연구소 탈출</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#101827;color:#eef4ff;font-family:Arial,"Noto Sans KR",sans-serif;min-height:100vh;display:grid;place-items:center;padding:20px}
+main{width:min(720px,100%);background:#1b293d;border:1px solid #40516a;border-radius:20px;padding:28px;box-shadow:0 18px 50px #0006}
+small{color:#8ed8cf;letter-spacing:2px}h1{font-size:clamp(25px,5vw,38px);margin:10px 0}p{line-height:1.7}.screen{display:none}.screen.active{display:block}
+.panel{background:#111d2d;border:1px solid #40516a;border-radius:14px;padding:18px;margin:18px 0}
+button{background:#69d6c5;color:#10202b;border:0;border-radius:10px;padding:12px 18px;font-weight:bold;font-size:16px;cursor:pointer;margin-top:12px}
+input{background:#0d1725;color:white;border:1px solid #60748e;border-radius:9px;padding:12px;font-size:18px;width:160px;max-width:100%}
+label{display:block;margin:14px 0 6px}.hint{color:#b9c9dc;font-size:14px}.error{color:#ff9c9c;min-height:24px}.success{color:#8ce5b6}
+table{border-collapse:collapse;margin:14px 0}td{border:1px solid #61758d;padding:10px;text-align:center;min-width:38px}
+</style></head>
+<body><main>
+<small>ESCAPE ROOM · 수학 추리 게임</small>
+<section id="s0" class="screen active"><h1>미친 과학자의<br>연구소 탈출하기</h1><p>눈을 떠보니 미치광이 과학자의 연구소에 갇혀 있다. 연구소의 문을 열려면 네 자리 비밀번호를 찾아야 한다.</p><p>각 연구실의 문제를 풀어 얻은 숫자를 차례대로 모아라.</p><button onclick="go(1)">연구소 탐색 시작</button></section>
+<section id="s1" class="screen"><h1>01. 약물 실험실</h1><p>모니터에 실험 보고서가 나타났다. 세 약물에 <b>모두</b> 반응한 실험체의 수를 구하고, 결과의 첫째 자리 숫자를 입력하라.</p><div class="panel">A 약물 반응: 760개<br>B 약물 반응: 680개<br>C 약물 반응: 540개<br>A와 B 모두: 420개<br>A와 C 모두: 330개<br>B와 C 모두: 300개<br>세 약물 중 적어도 하나에 반응: 1100개</div><label>첫 번째 단서</label><input id="a1" inputmode="numeric" placeholder="숫자 입력"><div id="e1" class="error"></div><button onclick="check(1,'1')">단서 확인</button></section>
+<section id="s2" class="screen"><h1>02. 생명과학 연구실</h1><p>세포 분열 관찰 번호를 이용해 암호를 설정했다.</p><div class="panel">30 이하의 연속된 세 자연수를 더하고 30을 더한 후 67을 곱했더니 네 자리 자연수 □□31이 되었다.<br><br>연구실의 암호인 □□는 무엇인가?</div><label>두 번째 단서 (두 자리)</label><input id="a2" inputmode="numeric" placeholder="두 자리 입력"><div id="e2" class="error"></div><button onclick="check(2,'')">단서 확인</button></section>
+<section id="s3" class="screen"><h1>03. DNA 복구 연구실</h1><p>모든 행, 열, 두 대각선의 합이 같아지도록 숫자를 배열하라. 빈칸 네 숫자 중 가장 작은 수가 단서다.</p><div class="panel"><p>조건: 일반항 2n−1의 첫째 항부터 열여섯째 항까지 사용한다. 각 숫자는 한 번씩만 사용하며, 각 행·열·두 대각선의 합은 모두 같다.</p><table><tr><td>1</td><td>29</td><td>27</td><td>7</td></tr><tr><td>23</td><td>11</td><td>13</td><td>17</td></tr><tr><td>?</td><td>?</td><td>?</td><td>?</td></tr><tr><td>25</td><td>5</td><td>3</td><td>31</td></tr></table><p class="hint">힌트: 모든 행과 열의 합은 64가 되어야 한다.</p></div><label>세 번째 단서</label><input id="a3" inputmode="numeric" placeholder="숫자 입력"><div id="e3" class="error"></div><button onclick="check(3,'9')">단서 확인</button></section>
+<section id="s4" class="screen"><h1>04. 최종 출입문</h1><p>지금까지 얻은 세 단서를 차례로 조합해 최종 비밀번호를 입력하라.</p><div class="panel">앞의 세 문제에서 얻은 숫자를 순서대로 입력한다. 두 번째 단서는 문제에서 구한 두 자리 암호를 사용한다.</div><label>네 자리 비밀번호</label><input id="final" inputmode="numeric" maxlength="4" placeholder="4자리"><div id="ef" class="error"></div><button onclick="finish()">문 열기</button></section>
+<section id="s5" class="screen"><h1 class="success">탈출 성공!</h1><p>모든 단서를 찾아 연구소의 출입문을 열었다. 미치광이 과학자의 연구소에서 무사히 탈출했다!</p></section>
+</main><script>
+function go(n){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById('s'+n).classList.add('active')}
+function check(n,ans){let v=document.getElementById('a'+n).value.trim();let ok=false;if(n===1)ok=v==='1';if(n===2)ok=v==='62';
+if(n===3)ok=v==='9';
+let el=document.getElementById('e'+n);if(ok){el.textContent='정답입니다! 다음 연구실로 이동한다.';el.className='success';setTimeout(()=>go(n+1),650)}else{el.textContent='다시 생각해 보자. 조건을 확인하고 입력하라.';el.className='error'}}
+function finish(){let v=document.getElementById('final').value.trim();document.getElementById('ef').textContent='';if(v==='1'+document.getElementById('a2').value.trim()+'9'){go(5)}else{document.getElementById('ef').textContent='비밀번호가 맞지 않는다. 앞의 단서를 다시 확인하라.'}}
+</script></body></html>
