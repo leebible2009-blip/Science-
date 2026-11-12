@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>미친 과학자의 연구소 탈출</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#101827;color:#eef4ff;font-family:Arial,"Noto Sans KR",sans-serif;min-height:100vh;display:grid;place-items:center;padding:18px}
+main{width:min(760px,100%);background:#1b293d;border:1px solid #40516a;border-radius:20px;padding:clamp(18px,4vw,30px);box-shadow:0 18px 50px #0006}
+small{color:#8ed8cf;letter-spacing:2px}
+h1{font-size:clamp(25px,5vw,36px);margin:10px 0}
+p{line-height:1.75}
+.screen{display:none}.screen.active{display:block}
+.panel{background:#111d2d;border:1px solid #40516a;border-radius:14px;padding:18px;margin:18px 0;line-height:1.85}
+button{background:#69d6c5;color:#10202b;border:0;border-radius:10px;padding:12px 18px;font-weight:bold;font-size:16px;cursor:pointer;margin-top:12px}
+input{background:#0d1725;color:white;border:1px solid #60748e;border-radius:9px;padding:12px;font-size:18px;width:190px;max-width:100%}
+label{display:block;margin:14px 0 6px}.hint{color:#b9c9dc;font-size:14px}
+.error{color:#ff9c9c;min-height:24px}.success{color:#8ce5b6}
+table{border-collapse:collapse;margin:14px 0;width:100%;max-width:440px}
+td{border:1px solid #61758d;padding:10px;text-align:center}
+.pill{display:inline-block;border:1px solid #56718a;border-radius:999px;padding:3px 10px;color:#b9c9dc;font-size:13px}
+</style>
+</head>
+<body>
+<main>
+<small>ESCAPE ROOM · 수학 추리 게임</small>
+<section id="s0" class="screen active">
+<h1>미친 과학자의<br>연구소 탈출하기</h1>
+<p>눈을 떠보니 미치광이 과학자의 연구소에 갇혀 있다. 연구소의 문을 열려면 세 연구실에서 숫자 단서를 찾고, 마지막 쪽지에 숨겨진 과학자의 정체까지 밝혀내야 한다.</p>
+<p>총 네 가지 문제를 차례대로 해결하라!</p>
+<button onclick="go(1)">연구소 탐색 시작</button>
+</section>
+
+<section id="s1" class="screen">
+<span class="pill">문제 1 / 4</span><h1>01. 약물 실험실</h1>
+<p>모니터 속 실험 보고서에 비밀번호의 첫 번째 단서가 있다. 세 약물에 <b>모두</b> 반응한 실험체는 몇 개인가? 결과 값의 첫째 자리 숫자를 입력하라.</p>
+<div class="panel">A 약물에 반응한 실험체: 760개<br>B 약물에 반응한 실험체: 680개<br>C 약물에 반응한 실험체: 540개<br>A와 B 모두: 420개<br>A와 C 모두: 330개<br>B와 C 모두: 300개<br>세 약물 중 적어도 하나에 반응: 1100개</div>
+<label>첫 번째 단서</label><input id="a1" inputmode="numeric" placeholder="숫자 입력">
+<div id="e1" class="error"></div><button onclick="check(1)">단서 확인</button>
+</section>
+
+<section id="s2" class="screen">
+<span class="pill">문제 2 / 4</span><h1>02. 생명과학 연구실</h1>
+<p>세포 분열 과정을 관찰하기 위해 세 개의 연속된 관찰 번호를 이용해 암호를 설정했다.</p>
+<div class="panel">30 이하의 연속된 세 자연수를 더하고 30을 더한 후 67을 곱했더니 네 자리 자연수 <b>□□31</b>이 되었다.<br><br>연구실의 암호인 □□는 무엇인가?</div>
+<label>두 번째 단서</label><input id="a2" inputmode="numeric" placeholder="두 자리 입력">
+<div id="e2" class="error"></div><button onclick="check(2)">단서 확인</button>
+</section>
+
+<section id="s3" class="screen">
+<span class="pill">문제 3 / 4</span><h1>03. DNA 복구 연구실</h1>
+<p>DNA 복구 효소의 활성도는 일정한 규칙을 가지고 있다. 모든 행, 열, 두 대각선의 합이 같아지도록 숫자를 배열하라. 빈칸 네 숫자 중 가장 작은 수가 세 번째 단서다.</p>
+<div class="panel">
+조건: 일반항 2n−1의 첫째 항부터 열여섯째 항까지 사용한다. 각 숫자는 중복 없이 한 번씩 사용하며, 각 행·열·두 대각선의 합은 모두 같아야 한다.
+<table>
+<tr><td>1</td><td>29</td><td>27</td><td>7</td></tr>
+<tr><td>23</td><td>11</td><td>13</td><td>17</td></tr>
+<tr><td>?</td><td>?</td><td>?</td><td>?</td></tr>
+<tr><td>25</td><td>5</td><td>3</td><td>31</td></tr>
+</table>
+<p class="hint">힌트: 먼저 1부터 16까지의 수로 마방진을 만든 뒤, 각 수를 일반항 2n−1에 대입해 보자.</p>
+</div>
+<label>세 번째 단서</label><input id="a3" inputmode="numeric" placeholder="숫자 입력">
+<div id="e3" class="error"></div><button onclick="check(3)">단서 확인</button>
+</section>
+
+<section id="s4" class="screen">
+<span class="pill">문제 4 / 4 · 마지막 쪽지</span><h1>04. 과학자의 정체</h1>
+<p>세 숫자 단서를 모두 찾자, 연구실 책상 위에서 마지막 쪽지를 발견했다. 쪽지에는 과학자의 정체를 알아낼 암호가 적혀 있다.</p>
+<div class="panel">
+<b>[암호 해독 규칙]</b><br>
+기본 자음 암호에 5를 더해 숫자를 이동시킨다. 예를 들어 12에 5를 더하면 17이 된다. 이때 17을 14로 나눈 나머지인 3에 대응하는 자음을 찾는다.<br><br>
+이 규칙에 따라 <b>5, 14, 3</b>에 해당하는 자음을 차례대로 찾아라. 그 초성이 과학자의 정체다.
+</div>
+<label>과학자의 정체 (초성 세 글자)</label><input id="a4" maxlength="3" placeholder="초성 입력">
+<div id="e4" class="error"></div><button onclick="check(4)">정체 확인</button>
+</section>
+
+<section id="s5" class="screen">
+<h1 class="success">탈출 성공!</h1>
+<p>과학자의 정체까지 밝혀냈다! 이제 연구소의 비밀번호와 마지막 단서를 모두 찾아냈다.</p>
+<div class="panel">
+<b>최종 비밀번호</b><br><span style="font-size:32px;letter-spacing:8px">1629</span><br><br>
+<b>과학자의 정체</b><br><span style="font-size:30px;letter-spacing:8px">ㅎㅈㅌ</span>
+</div>
+<p>미치광이 과학자의 연구소에서 무사히 탈출했다!</p>
+</section>
+</main>
+<script>
+const answers={1:"1",2:"62",3:"9",4:"ㅎㅈㅌ"};
+function go(n){
+ document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));
+ document.getElementById("s"+n).classList.add("active");
+}
+function check(n){
+ const field=document.getElementById("a"+n);
+ const error=document.getElementById("e"+n);
+ const value=field.value.trim().replace(/\s/g,"");
+ if(value===answers[n]){
+   error.textContent="정답입니다! 다음 단계로 이동합니다.";
+   error.className="success";
+   setTimeout(()=>go(n+1),700);
+ }else{
+   error.textContent=n===4?"초성의 순서와 암호 해독 규칙을 다시 확인해 보자.":"조건을 다시 확인하고 답을 입력해 보자.";
+   error.className="error";
+ }
+}
+</script>
+</body>
+</html>
